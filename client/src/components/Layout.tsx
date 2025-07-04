@@ -34,11 +34,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const currentPage = navigation.find(item => item.href === location)?.name || "Dashboard";
 
   return (
-    <div className="flex h-screen bg-slate-50">
+    <div className="flex h-screen bg-background">
       {/* Sidebar */}
-      <div className="w-64 bg-white shadow-lg">
-        <div className="flex items-center justify-center h-16 border-b border-slate-200">
-          <h1 className="text-xl font-bold text-slate-800">SaaS Manager</h1>
+      <div className="w-64 bg-sidebar-background shadow-lg">
+        <div className="flex items-center justify-center h-16 border-b border-sidebar-border">
+          <h1 className="text-xl font-bold text-sidebar-foreground">VELZON</h1>
         </div>
         <nav className="mt-8">
           {navigation.map((item) => {
@@ -46,10 +46,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             const isActive = location === item.href;
             return (
               <Link key={item.name} href={item.href}>
-                <a className={`sidebar-nav-item ${isActive ? 'active' : ''}`}>
+                <div className={`sidebar-nav-item ${isActive ? 'active' : ''}`}>
                   <Icon className="w-5 h-5 mr-3" />
                   {item.name}
-                </a>
+                </div>
               </Link>
             );
           })}
@@ -59,10 +59,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Main Content */}
       <div className="flex-1 overflow-hidden">
         {/* Header */}
-        <header className="bg-white shadow-sm border-b border-slate-200">
+        <header className="bg-card shadow-sm border-b border-border">
           <div className="flex items-center justify-between px-6 py-4">
             <div className="flex items-center">
-              <h2 className="text-2xl font-semibold text-slate-800">{currentPage}</h2>
+              <h2 className="text-2xl font-semibold text-foreground">{currentPage}</h2>
             </div>
             <div className="flex items-center space-x-4">
               <Button variant="ghost" size="icon">
@@ -73,7 +73,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face" />
                   <AvatarFallback>JD</AvatarFallback>
                 </Avatar>
-                <span className="text-sm font-medium text-slate-700">John Doe</span>
+                <span className="text-sm font-medium text-foreground">Anna Adame</span>
               </div>
             </div>
           </div>

@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(0, 0%, 100%);
+  --background: hsl(0, 0%, 98%);
   --foreground: hsl(222, 84%, 4.9%);
   --card: hsl(0, 0%, 100%);
   --card-foreground: hsl(222, 84%, 4.9%);
   --popover: hsl(0, 0%, 100%);
   --popover-foreground: hsl(222, 84%, 4.9%);
-  --primary: hsl(207, 90%, 54%);
+  --primary: hsl(221, 83%, 53%);
   --primary-foreground: hsl(210, 40%, 98%);
   --secondary: hsl(210, 40%, 96%);
   --secondary-foreground: hsl(222, 47%, 11%);
@@ -23,19 +23,19 @@
   --input: hsl(214, 32%, 91%);
   --ring: hsl(222, 84%, 4.9%);
   --radius: 0.5rem;
-  --chart-1: hsl(207, 90%, 54%);
+  --chart-1: hsl(221, 83%, 53%);
   --chart-2: hsl(160, 60%, 45%);
   --chart-3: hsl(30, 80%, 55%);
   --chart-4: hsl(280, 65%, 60%);
   --chart-5: hsl(340, 75%, 55%);
-  --sidebar-background: hsl(0, 0%, 100%);
-  --sidebar-foreground: hsl(240, 5%, 64%);
-  --sidebar-primary: hsl(207, 90%, 54%);
+  --sidebar-background: hsl(240, 10%, 14%);
+  --sidebar-foreground: hsl(240, 5%, 84%);
+  --sidebar-primary: hsl(221, 83%, 53%);
   --sidebar-primary-foreground: hsl(210, 40%, 98%);
-  --sidebar-accent: hsl(210, 40%, 96%);
-  --sidebar-accent-foreground: hsl(222, 47%, 11%);
-  --sidebar-border: hsl(214, 32%, 91%);
-  --sidebar-ring: hsl(222, 84%, 4.9%);
+  --sidebar-accent: hsl(240, 10%, 18%);
+  --sidebar-accent-foreground: hsl(240, 5%, 90%);
+  --sidebar-border: hsl(240, 10%, 20%);
+  --sidebar-ring: hsl(221, 83%, 53%);
 }
 
 .dark {
@@ -86,11 +86,11 @@
 
 @layer components {
   .sidebar-nav-item {
-    @apply flex items-center px-6 py-3 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-primary transition-colors duration-200;
+    @apply flex items-center px-6 py-3 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-foreground transition-colors duration-200 cursor-pointer;
   }
   
   .sidebar-nav-item.active {
-    @apply bg-sidebar-accent text-sidebar-primary;
+    @apply bg-sidebar-accent text-sidebar-primary border-r-4 border-sidebar-primary;
   }
   
   .metric-card {
