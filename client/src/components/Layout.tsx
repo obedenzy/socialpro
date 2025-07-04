@@ -12,7 +12,8 @@ import {
   Mail,
   Users,
   CreditCard,
-  Bell
+  Bell,
+  User
 } from "lucide-react";
 
 const navigation = [
@@ -26,12 +27,15 @@ const navigation = [
   { name: "Email", href: "/email", icon: Mail },
   { name: "Users", href: "/users", icon: Users },
   { name: "Payments", href: "/payments", icon: CreditCard },
+  { name: "Notifications", href: "/notifications", icon: Bell },
+  { name: "Profile", href: "/profile", icon: User },
 ];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
 
   const currentPage = navigation.find(item => item.href === location)?.name || "Dashboard";
+  const unreadNotifications = 5; // Mock unread count
 
   return (
     <div className="flex h-screen bg-background">
@@ -65,16 +69,25 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <h2 className="text-2xl font-semibold text-foreground">{currentPage}</h2>
             </div>
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="icon">
-                <Bell className="w-5 h-5" />
-              </Button>
-              <div className="flex items-center space-x-2">
-                <Avatar className="w-8 h-8">
-                  <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face" />
-                  <AvatarFallback>JD</AvatarFallback>
-                </Avatar>
-                <span className="text-sm font-medium text-foreground">Anna Adame</span>
-              </div>
+              <Link href="/notifications">
+                <Button variant="ghost" size="icon" className="relative">
+                  <Bell className="w-5 h-5" />
+                  {unreadNotifications > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                      {unreadNotifications}
+                    </span>
+                  )}
+                </Button>
+              </Link>
+              <Link href="/profile">
+                <div className="flex items-center space-x-2 cursor-pointer hover:bg-accent rounded-lg p-2 transition-colors">
+                  <Avatar className="w-8 h-8">
+                    <AvatarImage src="https://images.unsplash.com/photo-1494790108755-2616b612b1a1?w=32&h=32&fit=crop&crop=face" />
+                    <AvatarFallback>AA</AvatarFallback>
+                  </Avatar>
+                  <span className="text-sm font-medium text-foreground">Anna Adame</span>
+                </div>
+              </Link>
             </div>
           </div>
         </header>

@@ -14,6 +14,8 @@ import Promotions from "@/components/Promotions";
 import Email from "@/components/Email";
 import Users from "@/components/Users";
 import Payments from "@/components/Payments";
+import UserProfile from "@/components/UserProfile";
+import Notifications from "@/components/Notifications";
 import { initializeMockData } from "@/lib/mockData";
 import { useEffect } from "react";
 
@@ -31,6 +33,8 @@ function Router() {
         <Route path="/email" component={Email} />
         <Route path="/users" component={Users} />
         <Route path="/payments" component={Payments} />
+        <Route path="/profile" component={UserProfile} />
+        <Route path="/notifications" component={Notifications} />
       </Switch>
     </Layout>
   );

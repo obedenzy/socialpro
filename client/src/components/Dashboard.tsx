@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Star, Share2, Users, DollarSign, TrendingUp, Eye } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from "recharts";
 import { LocalStorage } from "@/lib/storage";
 import type { DashboardMetrics } from "@shared/schema";
 
@@ -20,6 +20,20 @@ const performanceData = [
   { name: "Week 3", engagement: 68, conversion: 48, satisfaction: 82 },
   { name: "Week 4", engagement: 75, conversion: 55, satisfaction: 90 },
 ];
+
+const userDistributionData = [
+  { name: "Active Users", value: 68, color: "#3b82f6" },
+  { name: "Inactive Users", value: 22, color: "#6b7280" },
+  { name: "New Users", value: 10, color: "#10b981" },
+];
+
+const revenueSourceData = [
+  { name: "Subscriptions", value: 45, color: "#8b5cf6" },
+  { name: "One-time Purchases", value: 30, color: "#f59e0b" },
+  { name: "Premium Features", value: 25, color: "#ef4444" },
+];
+
+const COLORS = ['#3b82f6', '#6b7280', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444'];
 
 const recentActivity = [
   {
@@ -161,6 +175,81 @@ export default function Dashboard() {
                 <Line type="monotone" dataKey="satisfaction" stroke="hsl(var(--chart-3))" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Analytics Pie Charts */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>User Distribution</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={userDistributionData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={80}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    {userDistributionData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(value) => [`${value}%`, '']} />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="flex flex-col space-y-2 mt-4">
+              {userDistributionData.map((entry, index) => (
+                <div key={index} className="flex items-center space-x-2">
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }}></div>
+                  <span className="text-sm text-foreground">{entry.name}: {entry.value}%</span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Revenue Sources</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={revenueSourceData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={80}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    {revenueSourceData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(value) => [`${value}%`, '']} />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="flex flex-col space-y-2 mt-4">
+              {revenueSourceData.map((entry, index) => (
+                <div key={index} className="flex items-center space-x-2">
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }}></div>
+                  <span className="text-sm text-foreground">{entry.name}: {entry.value}%</span>
+                </div>
+              ))}
+            </div>
           </CardContent>
         </Card>
       </div>
