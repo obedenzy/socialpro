@@ -199,7 +199,7 @@ export default function Dashboard() {
                     dataKey="value"
                   >
                     {userDistributionData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, '']} />
@@ -235,7 +235,7 @@ export default function Dashboard() {
                     dataKey="value"
                   >
                     {revenueSourceData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
                   <Tooltip formatter={(value) => [`${value}%`, '']} />
