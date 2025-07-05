@@ -10,7 +10,8 @@ import type {
   Payment,
   DashboardMetrics,
   OutboundCampaign,
-  PromoLandingPage
+  PromoLandingPage,
+  ReviewLandingPage
 } from '@shared/schema';
 
 export class LocalStorage {

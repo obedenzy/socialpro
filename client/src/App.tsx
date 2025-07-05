@@ -18,14 +18,16 @@ import UserProfile from "@/components/UserProfile";
 import Notifications from "@/components/Notifications";
 import OutboundCommunications from "@/components/OutboundCommunications";
 import PromoLandingPage from "@/components/PromoLandingPage";
+import ReviewLandingPage from "@/components/ReviewLandingPage";
 import { initializeMockData } from "@/lib/mockData";
 import { useEffect } from "react";
 
 function Router() {
   return (
     <Switch>
-      {/* Public promo landing pages - no layout */}
+      {/* Public landing pages - no layout */}
       <Route path="/promo/:userId/:promoId" component={PromoLandingPage} />
+      <Route path="/review/:userId/:reviewId" component={ReviewLandingPage} />
       
       {/* Main app routes with layout */}
       <Route>

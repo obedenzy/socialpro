@@ -152,6 +152,10 @@ Preferred communication style: Simple, everyday language.
   - Implemented image upload for promotional materials
   - Created public landing pages with dynamic URLs based on user ID
   - Added QR code generation and download functionality for SMS integration
+  - Enhanced Reviews page with similar landing page functionality
+  - Added review landing page creation with image upload and customizable text
+  - Implemented dynamic review URLs and QR code generation for customer testimonials
+  - Created professional review landing pages with star ratings and customer details
   - Updated navigation with new "Outbound Comms" section
   - Fixed calendar layout to exactly match provided reference design
 

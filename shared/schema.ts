@@ -211,3 +211,21 @@ export const promoLandingPageSchema = z.object({
 });
 
 export type PromoLandingPage = z.infer<typeof promoLandingPageSchema>;
+
+// Review Landing Page Schema
+export const reviewLandingPageSchema = z.object({
+  id: z.string(),
+  userId: z.string(),
+  title: z.string(),
+  reviewText: z.string(),
+  image: z.string(),
+  customerName: z.string().optional(),
+  rating: z.number().min(1).max(5),
+  isActive: z.boolean(),
+  qrCode: z.string(),
+  dynamicUrl: z.string(),
+  createdAt: z.string(),
+  updatedAt: z.string()
+});
+
+export type ReviewLandingPage = z.infer<typeof reviewLandingPageSchema>;
