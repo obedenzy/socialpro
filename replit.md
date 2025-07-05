@@ -156,6 +156,10 @@ Preferred communication style: Simple, everyday language.
   - Added review landing page creation with image upload and customizable text
   - Implemented dynamic review URLs and QR code generation for customer testimonials
   - Created professional review landing pages with star ratings and customer details
+  - Added printable preview pages for both promo and review landing pages
+  - Implemented vertical print layout: text, image, QR code, discount/trust badge
+  - Added print/edit/download functionality with proper print CSS styling
+  - Created dedicated preview routes accessible via preview buttons
   - Updated navigation with new "Outbound Comms" section
   - Fixed calendar layout to exactly match provided reference design
 

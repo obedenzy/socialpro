@@ -24,7 +24,8 @@ import {
   Link, 
   Eye,
   ExternalLink,
-  Download
+  Download,
+  FileText
 } from "lucide-react";
 import { LocalStorage } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
@@ -476,6 +477,13 @@ export default function Promotions() {
                             onClick={() => window.open(page.dynamicUrl, '_blank')}
                           >
                             <ExternalLink className="w-4 h-4" />
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            onClick={() => window.open(`/preview/promo/${page.userId}/${page.id}`, '_blank')}
+                          >
+                            <FileText className="w-4 h-4" />
                           </Button>
                         </div>
                       </div>

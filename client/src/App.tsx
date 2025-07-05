@@ -19,6 +19,8 @@ import Notifications from "@/components/Notifications";
 import OutboundCommunications from "@/components/OutboundCommunications";
 import PromoLandingPage from "@/components/PromoLandingPage";
 import ReviewLandingPage from "@/components/ReviewLandingPage";
+import PromoPreview from "@/components/PromoPreview";
+import ReviewPreview from "@/components/ReviewPreview";
 import { initializeMockData } from "@/lib/mockData";
 import { useEffect } from "react";
 
@@ -28,6 +30,10 @@ function Router() {
       {/* Public landing pages - no layout */}
       <Route path="/promo/:userId/:promoId" component={PromoLandingPage} />
       <Route path="/review/:userId/:reviewId" component={ReviewLandingPage} />
+      
+      {/* Preview pages - no layout */}
+      <Route path="/preview/promo/:userId/:promoId" component={PromoPreview} />
+      <Route path="/preview/review/:userId/:reviewId" component={ReviewPreview} />
       
       {/* Main app routes with layout */}
       <Route>
