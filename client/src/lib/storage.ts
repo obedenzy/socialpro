@@ -8,7 +8,9 @@ import type {
   Email, 
   User, 
   Payment,
-  DashboardMetrics
+  DashboardMetrics,
+  OutboundCampaign,
+  PromoLandingPage
 } from '@shared/schema';
 
 export class LocalStorage {

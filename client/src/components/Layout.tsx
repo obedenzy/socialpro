@@ -13,7 +13,8 @@ import {
   Users,
   CreditCard,
   Bell,
-  User
+  User,
+  Phone
 } from "lucide-react";
 
 const navigation = [
@@ -24,6 +25,7 @@ const navigation = [
   { name: "Calendar", href: "/calendar", icon: Calendar },
   { name: "Post Cards", href: "/posts", icon: FileText },
   { name: "Promotions", href: "/promotions", icon: Percent },
+  { name: "Outbound Comms", href: "/outbound", icon: Phone },
   { name: "Email", href: "/email", icon: Mail },
   { name: "Users", href: "/users", icon: Users },
   { name: "Payments", href: "/payments", icon: CreditCard },

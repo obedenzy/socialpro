@@ -16,27 +16,38 @@ import Users from "@/components/Users";
 import Payments from "@/components/Payments";
 import UserProfile from "@/components/UserProfile";
 import Notifications from "@/components/Notifications";
+import OutboundCommunications from "@/components/OutboundCommunications";
+import PromoLandingPage from "@/components/PromoLandingPage";
 import { initializeMockData } from "@/lib/mockData";
 import { useEffect } from "react";
 
 function Router() {
   return (
-    <Layout>
-      <Switch>
-        <Route path="/" component={Dashboard} />
-        <Route path="/reviews" component={Reviews} />
-        <Route path="/social" component={SocialMedia} />
-        <Route path="/chatbot" component={ChatBot} />
-        <Route path="/calendar" component={Calendar} />
-        <Route path="/posts" component={PostCards} />
-        <Route path="/promotions" component={Promotions} />
-        <Route path="/email" component={Email} />
-        <Route path="/users" component={Users} />
-        <Route path="/payments" component={Payments} />
-        <Route path="/profile" component={UserProfile} />
-        <Route path="/notifications" component={Notifications} />
-      </Switch>
-    </Layout>
+    <Switch>
+      {/* Public promo landing pages - no layout */}
+      <Route path="/promo/:userId/:promoId" component={PromoLandingPage} />
+      
+      {/* Main app routes with layout */}
+      <Route>
+        <Layout>
+          <Switch>
+            <Route path="/" component={Dashboard} />
+            <Route path="/reviews" component={Reviews} />
+            <Route path="/social" component={SocialMedia} />
+            <Route path="/chatbot" component={ChatBot} />
+            <Route path="/calendar" component={Calendar} />
+            <Route path="/posts" component={PostCards} />
+            <Route path="/promotions" component={Promotions} />
+            <Route path="/email" component={Email} />
+            <Route path="/users" component={Users} />
+            <Route path="/payments" component={Payments} />
+            <Route path="/profile" component={UserProfile} />
+            <Route path="/notifications" component={Notifications} />
+            <Route path="/outbound" component={OutboundCommunications} />
+          </Switch>
+        </Layout>
+      </Route>
+    </Switch>
   );
 }
 

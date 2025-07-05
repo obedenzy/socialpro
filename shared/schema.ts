@@ -167,3 +167,47 @@ export const dashboardMetricsSchema = z.object({
 });
 
 export type DashboardMetrics = z.infer<typeof dashboardMetricsSchema>;
+
+// Outbound Campaign Schema
+export const outboundCampaignSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  type: z.enum(['call', 'sms', 'email']),
+  message: z.string(),
+  recipients: z.array(z.object({
+    phone: z.string().optional(),
+    email: z.string().optional(),
+    name: z.string().optional()
+  })),
+  status: z.enum(['draft', 'scheduled', 'sent', 'completed']),
+  scheduledDate: z.string().optional(),
+  createdAt: z.string(),
+  stats: z.object({
+    sent: z.number(),
+    delivered: z.number(),
+    failed: z.number(),
+    responses: z.number()
+  })
+});
+
+export type OutboundCampaign = z.infer<typeof outboundCampaignSchema>;
+
+// Promo Landing Page Schema
+export const promoLandingPageSchema = z.object({
+  id: z.string(),
+  userId: z.string(),
+  title: z.string(),
+  description: z.string(),
+  image: z.string(),
+  promoCode: z.string().optional(),
+  discountValue: z.number().optional(),
+  discountType: z.enum(['percentage', 'fixed', 'free_shipping']).optional(),
+  expiryDate: z.string().optional(),
+  isActive: z.boolean(),
+  qrCode: z.string(),
+  dynamicUrl: z.string(),
+  createdAt: z.string(),
+  updatedAt: z.string()
+});
+
+export type PromoLandingPage = z.infer<typeof promoLandingPageSchema>;

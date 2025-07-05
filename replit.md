@@ -143,6 +143,18 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+- July 05, 2025: Major feature expansion with outbound communications and enhanced promotions
+  - Added comprehensive Outbound Communications page with Twilio API integration
+  - Implemented CSV upload for phone numbers and emails for bulk campaigns
+  - Created customizable SMS, email, and calling campaign forms with templates
+  - Added campaign analytics with delivery rates, responses, and performance tracking
+  - Enhanced Promotions with dynamic landing page creation and QR code generation
+  - Implemented image upload for promotional materials
+  - Created public landing pages with dynamic URLs based on user ID
+  - Added QR code generation and download functionality for SMS integration
+  - Updated navigation with new "Outbound Comms" section
+  - Fixed calendar layout to exactly match provided reference design
+
 - July 04, 2025: Enhanced SaaS management platform with advanced features
   - Added interactive pie charts to dashboard for user distribution and revenue sources
   - Created comprehensive user profile page with tabs for personal info, security, activity, and preferences
