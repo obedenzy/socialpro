@@ -22,7 +22,8 @@ import {
   ExternalLink,
   Download,
   Eye,
-  FileText
+  FileText,
+  Printer
 } from "lucide-react";
 import { LocalStorage } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
@@ -34,6 +35,7 @@ export default function Reviews() {
   const [activeTab, setActiveTab] = useState("overview");
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isCreatingLanding, setIsCreatingLanding] = useState(false);
+  const [selectedForPreview, setSelectedForPreview] = useState<string | null>(null);
   
   // Form states
   const [reviewTitle, setReviewTitle] = useState("");
@@ -406,95 +408,202 @@ export default function Reviews() {
               </Card>
             ) : (
               reviewLandingPages.map((page) => (
-                <Card key={page.id}>
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-start space-x-4">
-                        <img 
-                          src={page.image} 
-                          alt={page.title} 
-                          className="w-16 h-16 object-cover rounded-lg"
-                        />
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-foreground">{page.title}</h3>
-                          <p className="text-sm text-muted-foreground mt-1">{page.reviewText.substring(0, 100)}...</p>
-                          <div className="flex items-center space-x-4 mt-2">
-                            <div className="flex items-center space-x-1">
-                              {renderStars(page.rating)}
-                              <span className="text-sm text-muted-foreground ml-2">{page.rating}/5</span>
-                            </div>
-                            {page.customerName && (
-                              <span className="text-sm text-muted-foreground">by {page.customerName}</span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                      <Badge className={page.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
-                        {page.isActive ? 'Active' : 'Inactive'}
-                      </Badge>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 pt-4 border-t">
-                      <div className="space-y-2">
-                        <Label>QR Code</Label>
-                        <div className="flex items-center space-x-2">
-                          <img src={page.qrCode} alt="QR Code" className="w-16 h-16 border rounded" />
-                          <div className="flex-1 space-y-1">
-                            <Button 
-                              variant="outline" 
-                              size="sm" 
-                              onClick={() => copyToClipboard(page.qrCode, "QR Code URL")}
-                              className="w-full"
-                            >
-                              <Copy className="w-4 h-4 mr-2" />
-                              Copy QR Code URL
-                            </Button>
-                            <Button 
-                              variant="outline" 
-                              size="sm" 
-                              onClick={() => downloadQRCode(page.qrCode, page.title)}
-                              className="w-full"
-                            >
-                              <Download className="w-4 h-4 mr-2" />
-                              Download QR Code
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <Label>Landing Page URL</Label>
-                        <div className="flex items-center space-x-2">
-                          <Input 
-                            value={page.dynamicUrl} 
-                            readOnly 
-                            className="text-sm"
+                <div key={page.id} className="space-y-4">
+                  <Card>
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-start space-x-4">
+                          <img 
+                            src={page.image} 
+                            alt={page.title} 
+                            className="w-16 h-16 object-cover rounded-lg"
                           />
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            onClick={() => copyToClipboard(page.dynamicUrl, "Landing Page URL")}
-                          >
-                            <Copy className="w-4 h-4" />
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            onClick={() => window.open(page.dynamicUrl, '_blank')}
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            onClick={() => window.open(`/preview/review/${page.userId}/${page.id}`, '_blank')}
-                          >
-                            <FileText className="w-4 h-4" />
-                          </Button>
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-foreground">{page.title}</h3>
+                            <p className="text-sm text-muted-foreground mt-1">{page.reviewText.substring(0, 100)}...</p>
+                            <div className="flex items-center space-x-4 mt-2">
+                              <div className="flex items-center space-x-1">
+                                {renderStars(page.rating)}
+                                <span className="text-sm text-muted-foreground ml-2">{page.rating}/5</span>
+                              </div>
+                              {page.customerName && (
+                                <span className="text-sm text-muted-foreground">by {page.customerName}</span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        <Badge className={page.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
+                          {page.isActive ? 'Active' : 'Inactive'}
+                        </Badge>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 pt-4 border-t">
+                        <div className="space-y-2">
+                          <Label>QR Code</Label>
+                          <div className="flex items-center space-x-2">
+                            <img src={page.qrCode} alt="QR Code" className="w-16 h-16 border rounded" />
+                            <div className="flex-1 space-y-1">
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                onClick={() => copyToClipboard(page.qrCode, "QR Code URL")}
+                                className="w-full"
+                              >
+                                <Copy className="w-4 h-4 mr-2" />
+                                Copy QR Code URL
+                              </Button>
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                onClick={() => downloadQRCode(page.qrCode, page.title)}
+                                className="w-full"
+                              >
+                                <Download className="w-4 h-4 mr-2" />
+                                Download QR Code
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Landing Page URL</Label>
+                          <div className="flex items-center space-x-2">
+                            <Input 
+                              value={page.dynamicUrl} 
+                              readOnly 
+                              className="text-sm"
+                            />
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              onClick={() => copyToClipboard(page.dynamicUrl, "Landing Page URL")}
+                            >
+                              <Copy className="w-4 h-4" />
+                            </Button>
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              onClick={() => window.open(page.dynamicUrl, '_blank')}
+                            >
+                              <ExternalLink className="w-4 h-4" />
+                            </Button>
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              onClick={() => setSelectedForPreview(selectedForPreview === page.id ? null : page.id)}
+                            >
+                              <FileText className="w-4 h-4" />
+                            </Button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                  
+                  {selectedForPreview === page.id && (
+                    <Card className="bg-gray-50 border-2 border-blue-200">
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h3 className="text-lg font-semibold text-foreground">Print Preview</h3>
+                          <div className="flex items-center space-x-2">
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              onClick={() => setSelectedForPreview(null)}
+                            >
+                              <Edit className="w-4 h-4 mr-2" />
+                              Close Preview
+                            </Button>
+                            <Button 
+                              size="sm" 
+                              onClick={() => window.print()}
+                            >
+                              <Printer className="w-4 h-4 mr-2" />
+                              Print
+                            </Button>
+                          </div>
+                        </div>
+                        
+                        <div id="print-content" className="bg-white p-8 rounded-lg shadow-lg max-w-md mx-auto">
+                          <div className="space-y-6 text-center">
+                            <div>
+                              <div className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-sm font-medium mb-3">
+                                Customer Testimonial
+                              </div>
+                              <h1 className="text-2xl font-bold text-gray-900 mb-3">
+                                {page.title}
+                              </h1>
+                              
+                              <div className="flex items-center justify-center space-x-2 mb-4">
+                                <div className="flex">{renderStars(page.rating)}</div>
+                                <span className="text-xl font-bold text-gray-900">{page.rating}.0</span>
+                              </div>
+                              
+                              <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                                <div className="relative">
+                                  <div className="text-3xl text-gray-300 absolute -top-2 -left-2">"</div>
+                                  <p className="text-gray-800 px-6 leading-relaxed">
+                                    {page.reviewText}
+                                  </p>
+                                  <div className="text-3xl text-gray-300 absolute -bottom-4 -right-2">"</div>
+                                </div>
+                                {page.customerName && (
+                                  <div className="mt-3 pt-3 border-t border-gray-200 text-right">
+                                    <p className="font-semibold text-gray-900">— {page.customerName}</p>
+                                    <p className="text-sm text-gray-600">Verified Customer</p>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+
+                            <div className="flex justify-center">
+                              <img 
+                                src={page.image} 
+                                alt={page.title}
+                                className="w-full max-w-xs h-48 object-cover rounded-lg shadow-md"
+                              />
+                            </div>
+
+                            <div className="bg-gray-50 p-4 rounded-lg border">
+                              <h3 className="text-sm font-semibold text-gray-900 mb-3">
+                                Scan to Read Full Review
+                              </h3>
+                              <img 
+                                src={page.qrCode} 
+                                alt="QR Code" 
+                                className="w-32 h-32 mx-auto"
+                              />
+                              <p className="text-xs text-gray-600 mt-2">
+                                Scan with your phone camera
+                              </p>
+                            </div>
+
+                            <div className="bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-lg p-4">
+                              <div className="text-xs font-medium mb-1">Verified Review</div>
+                              <div className="text-xl font-bold mb-1">100% Authentic</div>
+                              <div className="text-xs">
+                                This review has been verified and authenticated
+                              </div>
+                              <div className="flex justify-center mt-3">
+                                <div className="flex items-center space-x-1">
+                                  {renderStars(5).map((star, index) => (
+                                    <div key={index} className="w-4 h-4 text-yellow-300">
+                                      {star}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="text-xs text-gray-500 border-t pt-3">
+                              <p>{window.location.origin}/review/{page.userId}/{page.id}</p>
+                              <p className="mt-1">© 2025 - All rights reserved</p>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
               ))
             )}
           </div>

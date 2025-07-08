@@ -129,3 +129,111 @@
     @apply bg-red-100 text-red-800;
   }
 }
+
+/* Print Styles */
+@media print {
+  @page {
+    margin: 0.5in;
+    size: letter;
+  }
+  
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* Hide everything except print content */
+  body * {
+    visibility: hidden;
+  }
+  
+  #print-content,
+  #print-content * {
+    visibility: visible;
+  }
+  
+  #print-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  
+  /* Adjust font sizes for print */
+  #print-content h1 {
+    font-size: 24px !important;
+  }
+  
+  #print-content h2 {
+    font-size: 20px !important;
+  }
+  
+  #print-content h3 {
+    font-size: 16px !important;
+  }
+  
+  #print-content p {
+    font-size: 14px !important;
+  }
+  
+  #print-content .text-xs {
+    font-size: 10px !important;
+  }
+  
+  #print-content .text-sm {
+    font-size: 12px !important;
+  }
+  
+  #print-content .text-xl {
+    font-size: 18px !important;
+  }
+  
+  #print-content .text-2xl {
+    font-size: 20px !important;
+  }
+  
+  /* Ensure images fit properly */
+  #print-content img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
+  /* Preserve colors and gradients */
+  #print-content .bg-gradient-to-r {
+    background: #ef4444 !important;
+    color: white !important;
+  }
+  
+  #print-content .text-white {
+    color: white !important;
+  }
+  
+  #print-content .text-gray-900 {
+    color: #111827 !important;
+  }
+  
+  #print-content .text-gray-600 {
+    color: #4b5563 !important;
+  }
+  
+  #print-content .text-gray-500 {
+    color: #6b7280 !important;
+  }
+  
+  #print-content .bg-gray-50 {
+    background-color: #f9fafb !important;
+  }
+  
+  #print-content .border-t {
+    border-top: 1px solid #e5e7eb !important;
+  }
+  
+  #print-content .border {
+    border: 1px solid #e5e7eb !important;
+  }
+}
